@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+// 编译命令
+// protoc --cpp_out=./ --proto_path=./ biz_message.proto
+
+
+enum Encode {
+    bin = 0;
+    utf8 = 1;
+    base64 = 2;
+    json = 3;
+}
+
+message Htpp {
+    sint32 ver = 1;
+    sint32 seqno = 2;
+    string uid = 3;
+    string msgtype = 4;
+    Encode encode = 5;
+    bytes data = 6;
+    bool is_null = 7;
+}
+
+enum MsgType {
+    kDHC_Placeholder = 0;
+    kDHC_First = 1;
+    kDHC_Second = 2;
+    kDHC_Third = 3;
+}
+
+message DHC_First {
+    int32 date = 1;
+    string biz_name = 2;
+    string biz_code = 3;
+}
+
+message DHC_Second {
+    int32 date = 1;
+    string biz_name = 2;
+    string biz_code = 3;
+    repeated DHC_First detail = 4;
+}
+

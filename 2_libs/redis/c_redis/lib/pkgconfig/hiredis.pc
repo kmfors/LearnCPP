@@ -1,0 +1,11 @@
+prefix=/home/snow/Repos/CodeFree/2_libs/redis
+exec_prefix=${prefix}
+libdir=/home/snow/Repos/CodeFree/2_libs/redis/lib
+includedir=/home/snow/Repos/CodeFree/2_libs/redis/include
+pkgincludedir=/home/snow/Repos/CodeFree/2_libs/redis/include/hiredis
+
+Name: hiredis
+Description: Minimalistic C client library for Redis.
+Version: 1.2.0
+Libs: -L${libdir} -lhiredis
+Cflags: -I${pkgincludedir} -I${includedir} -D_FILE_OFFSET_BITS=64

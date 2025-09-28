@@ -1,0 +1,53 @@
+#include <iostream>
+#include <string>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
+
+std::mutex mtx;
+std::condition_variable cv;
+std::string data;
+bool ready = false;
+bool processed = false;
+
+void worker_thread() {
+    
+    std::unique_lock<std::mutex> ulk(mtx);
+
+    // wait中的谓词返回false为虚假唤醒，继续阻塞；为true，则真实唤醒
+    cv.wait(ulk, []{ return ready;});
+
+    // 占有锁
+    std::cout << "Worker thread is processing data\n";
+    data += " after processing";
+
+    // 处理完成
+    processed = true;
+    std::cout << "Worker thread signals data processing complated\n";
+
+    // 通知前完成手动解锁，以避免主线程才被唤醒就阻塞
+    ulk.unlock();
+    cv.notify_one(); 
+}
+
+int main() {
+    std::thread worker(worker_thread);
+
+    data = "Example data";
+    // 发送数据到 worker 线程
+    {
+        std::lock_guard<std::mutex> ulk(mtx);
+        ready = true;
+        std::cout << "main() signals data ready for processing\n";
+    }
+    cv.notify_one();
+
+    // 等候 worker
+    {
+        std::unique_lock<std::mutex> ulk(mtx);
+        cv.wait(ulk, []{ return processed;});
+    }
+    std::cout << "Back in main() , data = " << data << '\n';
+
+    worker.join();
+}

@@ -1,0 +1,15 @@
+4_awesome/[Dd]ebug/
+[Rr]elease/
+[Rr]eleases/
+[Bb]uild/
+
+[Oo]bj/
+[Oo]ut/
+[Ll]og/
+[Ll]ogs/
+
+.cache/
+
+.vscode/
+
+*.out

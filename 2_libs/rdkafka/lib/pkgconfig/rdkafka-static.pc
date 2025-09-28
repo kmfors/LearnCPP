@@ -1,0 +1,10 @@
+prefix=/home/snow/Repos/codefree/5_src/librdkafka-2.6.0/./dh
+libdir=/home/snow/Repos/codefree/5_src/librdkafka-2.6.0/./dh/lib
+includedir=/home/snow/Repos/codefree/5_src/librdkafka-2.6.0/./dh/include
+
+Name: librdkafka-static
+Description: The Apache Kafka C/C++ library (static)
+Version: 2.6.0
+Requires: zlib
+Cflags: -I${includedir}
+Libs: -L${libdir} ${pc_sysrootdir}${libdir}/librdkafka.a -lm -lcurl -lssl -lcrypto -lcrypto -ldl -lpthread -lrt -lpthread -lrt

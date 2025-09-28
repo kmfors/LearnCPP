@@ -1,0 +1,28 @@
+{
+    "data":[
+        {"FundID":"331040000007111","PermissionID":"16","secuid_SH":null,"secuid_SZ":null,"enable":"1","note":null},
+        {"FundID":"331040000007112","PermissionID":"17","secuid_SH":null,"secuid_SZ":null,"enable":"1","note":null},
+        {"FundID":"331040000007113","PermissionID":"18","secuid_SH":null,"secuid_SZ":null,"enable":"1","note":null}
+    ],
+    "mysqlType":{
+        "FundID":"BIGINT",
+        "PermissionID":"INT",
+        "enable":"TINYINT",
+        "note":"TINYTEXT",
+        "secuid_SH":"CHAR(12)",
+        "secuid_SZ":"CHAR(12)"
+    },
+    "database":"pss",
+    "es":1724842883000,
+    "gtid":"",
+    "id":16,
+    "isDdl":false,
+    "old":null,
+    "pkNames":["FundID"],
+    "sql":"",
+    "sqlType":{"FundID":-5,"PermissionID":4,"secuid_SH":1,"secuid_SZ":1,"enable":-6,"note":2005},
+    "table":"user_info",
+    "ts":1724842883316,
+    "type":"INSERT"
+
+}
