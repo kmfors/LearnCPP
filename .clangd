@@ -1,0 +1,6 @@
+Index:
+  Background: Build
+
+CompileFlags:
+  Add: [-Wall, -std=c++14]
+  Compiler: g++

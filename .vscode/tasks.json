@@ -1,0 +1,68 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "CMake: configure",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+				"-S", "${config:DH_ENV.PROJECT_ROOT}",
+				"-B", "${config:DH_ENV.BUILD_DIR}",
+				"-G", "MinGW Makefiles",
+				"-DCMAKE_BUILD_TYPE=${config:DH_ENV.BUILD_TYPE}",
+				"-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+				"-DCMAKE_C_COMPILER=${config:DH_ENV.COMPILER_PATH}/gcc.exe",
+				"-DCMAKE_CXX_COMPILER=${config:DH_ENV.COMPILER_PATH}/g++.exe"
+			],
+			"options": { "cwd": "${config:DH_ENV.PROJECT_ROOT}" },
+			"group": {
+                "kind": "build",
+                "isDefault": true
+            },
+			"presentation": {
+				"reveal": "always",
+				"panel": "shared"
+			},
+            "problemMatcher": [ ],
+            "detail": "CMake configuration task"
+        },
+        {
+            "label": "CMake: build",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build", "${config:DH_ENV.BUILD_DIR}",
+                "--config", "${config:DH_ENV.BUILD_TYPE}",
+                "-j", "${config:DH_ENV.THREAD_COUNT}"
+            ],
+            "options": { "cwd": "${config:DH_ENV.PROJECT_ROOT}" },
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "problemMatcher": [ "$msCompile" ],
+			"presentation": {
+				"reveal": "always",
+				"panel": "shared"
+			},
+            //"dependsOn": "CMake: configure",
+			"detail": "CMake build task"
+        },
+        {
+            "label": "Run MyCppProject",
+            "type": "shell",
+            "command": "${config:DH_ENV.BIN_DIR}/${config:DH_ENV.PROJECT_NAME}.exe",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "new"
+            },
+            "problemMatcher": []
+        }
+    ]
+}
