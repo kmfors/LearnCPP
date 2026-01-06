@@ -38,4 +38,5 @@
     ],
     "clangd.inactiveRegions.useBackgroundHighlight": true,
     "editor.inlayHints.enabled": "offUnlessPressed",
+    "editor.fontSize": 16,
 }

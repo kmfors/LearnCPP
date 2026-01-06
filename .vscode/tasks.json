@@ -63,6 +63,22 @@
                 "panel": "new"
             },
             "problemMatcher": []
+        },
+        {
+            "label": "Run Current Single Test",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "${relativeFileDirname}/${fileBasename}",
+                "-o", "build/${fileBasenameNoExtension}.exe",
+                ";", "build/${fileBasenameNoExtension}.exe"
+            ],
+            "group": {"kind": "test","isDefault": true },
+            "presentation": {
+                "echo": true,"reveal": "always",
+                "focus": false,"panel": "shared"
+            },
         }
+
     ]
 }
