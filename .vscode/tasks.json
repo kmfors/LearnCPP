@@ -70,6 +70,7 @@
             "command": "g++",
             "args": [
                 "${relativeFileDirname}/${fileBasename}",
+                "-std=c++11",
                 "-o", "build/${fileBasenameNoExtension}.exe",
                 ";", "build/${fileBasenameNoExtension}.exe"
             ],
