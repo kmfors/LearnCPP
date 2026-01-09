@@ -1,5 +1,4 @@
-#ifndef _BUFFER_H_
-#define _BUFFER_H_
+#pragma once
 
 #include <vector>
 #include <string>
@@ -57,5 +56,3 @@ private:
     std::size_t readPos_;
     std::size_t writePos_;
 };
-
-#endif  // _BUFFER_H_
