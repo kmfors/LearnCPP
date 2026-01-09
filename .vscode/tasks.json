@@ -8,11 +8,10 @@
             "args": [
 				"-S", "${config:DH_ENV.PROJECT_ROOT}",
 				"-B", "${config:DH_ENV.BUILD_DIR}",
-				"-G", "MinGW Makefiles",
+				"-G", "${config:DH_ENV.GENERATOR}",
 				"-DCMAKE_BUILD_TYPE=${config:DH_ENV.BUILD_TYPE}",
 				"-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
-				"-DCMAKE_C_COMPILER=${config:DH_ENV.COMPILER_PATH}/gcc.exe",
-				"-DCMAKE_CXX_COMPILER=${config:DH_ENV.COMPILER_PATH}/g++.exe"
+                "-DCMAKE_CXX_COMPILER=${config:DH_ENV.COMPILER_PATH}/g++.exe",
 			],
 			"options": { "cwd": "${config:DH_ENV.PROJECT_ROOT}" },
 			"group": {
@@ -64,8 +63,9 @@
             },
             "problemMatcher": []
         },
+        // 执行单个文件的编译与运行（自动定位当前打开的文件位置）
         {
-            "label": "Run Current Single Test",
+            "label": "Auto build and run single instance",
             "type": "shell",
             "command": "g++",
             "args": [
@@ -79,7 +79,41 @@
                 "echo": true,"reveal": "always",
                 "focus": false,"panel": "shared"
             },
-        }
+        },
+        ////////////////自动化配置编译文件///////////////////////////
+        {
+            "label": "CMake: auto configure",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+				"-S", "${relativeFileDirname}",
+				"-B", "${relativeFileDirname}/build",
+				"-G", "MinGW Makefiles",
+				"-DCMAKE_BUILD_TYPE=${config:DH_ENV.BUILD_TYPE}",
+				"-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
+				"-DCMAKE_CXX_COMPILER=${config:DH_ENV.COMPILER_PATH}/g++.exe"
+			],
+			"group": {"kind": "build", "isDefault": false},
+			"presentation": {"reveal": "always","panel": "shared"},
+            "problemMatcher": [ ],
+            "detail": "CMake auto configuration task"
+        },
+        {
+            "label": "CMake: auto build and run",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build", "${relativeFileDirname}/build",
+                "--config", "${config:DH_ENV.BUILD_TYPE}",
+                "-j${config:DH_ENV.THREAD_COUNT}",
+                "--target", "run"
+            ],
+            "group": {"kind": "build","isDefault": true },
+            "problemMatcher": [ "$msCompile" ],
+			"presentation": {"reveal": "always","panel": "shared"},
+            "dependsOn": "CMake: auto configure",
+			"detail": "CMake auto build and run task"
+        },
 
     ]
 }

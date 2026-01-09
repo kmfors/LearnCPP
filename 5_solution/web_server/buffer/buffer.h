@@ -1,50 +1,61 @@
 #ifndef _BUFFER_H_
 #define _BUFFER_H_
 
-//#include <cstring>
 #include <vector>
-#include <atomic>
 #include <string>
 
 class Buffer {
 public:
-    Buffer(int initBuffSize = 1024);
+    // 前置预留空间大小
+    static constexpr std::size_t kCheapPrepend = 8;
+    // 缓冲区初始大小
+    static constexpr std::size_t kInitialSize = 1024;
+
+    explicit Buffer(std::size_t initialSize = 1024);
+
     ~Buffer() = default;
 
-    size_t WriteableBytes() const;
-    size_t ReadableBytes() const;
-    size_t PrependableBytes() const;
+    // 可读字节数（已写入但未读取的数据）
+    std::size_t readableBytes() const;
+    // 可写字节数（空闲空间）
+    std::size_t writableBytes() const;
+    // 可前置字节数（已读取的空间，可复用）
+    std::size_t prependableBytes() const;
 
-    const char* Peek() const;
-    void EnsureWriteable(size_t len);
-    void HasWritten(size_t len);
+    // 返回可读数据的起始指针
+    const char* peek() const;
 
-    void Retrieve(size_t len);
-    void RetrieveUntil(const char* end);
+    void ensureWritable(std::size_t len);
 
-    void RetrieveAll();
-    std::string RetrieveAllToStr();
+    void commitWrite(std::size_t len);
+
+    void retrieve(std::size_t len);
+    void retrieveUntil(const char* end);
+    void retrieveAll();
+    std::string retrieveAsString(std::size_t len);
+    std::string retrieveAllAsString();
 
 
-    const char* BeginWriteConst() const;
-    char* BeginWrite();
+    const char* beginWrite() const;
+    char* beginWrite();
 
-    void Append(const std::string& str);
-    void Append(const char* str, size_t len);
-    void Append(const void* data, size_t len);
-    void Append(const Buffer& buff);
+    void append(const std::string& str);
+    void append(const char* data, std::size_t len);
+    void append(const void* data, std::size_t len);
+    void append(const Buffer& buff);
 
-    ssize_t ReadFd(int fd, int* errcode);
-    ssize_t WriteFd(int fd, int* errcode);
+
+    ssize_t readFromFd(int fd, int* saveError);
+    ssize_t writeToFd(int fd, int* saveError);
 
 private:
-    char* BeginPtr_();
-    const char* BeginPtr_() const;
-    void MakeSpace_(size_t len);
+    char* begin();
+    const char* begin() const;
+    void makeSpace(std::size_t len);
 
     std::vector<char> buffer_;
-    std::atomic<std::size_t> readPos_;
-    std::atomic<std::size_t> writePos_;
-
+    std::size_t readPos_;
+    std::size_t writePos_;
 };
+
 #endif  // _BUFFER_H_

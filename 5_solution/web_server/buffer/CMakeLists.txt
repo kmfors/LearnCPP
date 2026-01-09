@@ -43,6 +43,7 @@ message(STATUS "Output dir: ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 # $<TARGET_FILE:buffer_test> 编译阶段获取目标文件的完整路径
 
 # file(GLOB HDRS "*.h")        # 所有 .h 文件
+# 剔除不需要的头文件list(REMOVE_ITEM HDRS "unwanted_header.h")
 # file(GLOB <variable> <pattern>) 全局模式匹配
 # file(READ ...)	读取文件内容
 # file(WRITE ...)	写入文件

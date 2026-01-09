@@ -7,7 +7,8 @@
 
 		"PROJECT_NAME": "MyCppProject",
         "BUILD_TYPE": "Debug",
-        "COMPILER_PATH": "D:/2_Binary/mingw64/bin/",
+        "GENERATOR": "MinGW Makefiles",
+        "COMPILER_PATH": "D:/2_Binary/mingw64/bin",
         "THREAD_COUNT": "4",
     },
     // 通用缩进设置
