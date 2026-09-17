@@ -20,7 +20,7 @@
     "cmake.ignoreCMakeListsMissing": true,
 
     "C_Cpp.intelliSenseEngine": "disabled",
-    "clangd.path": "D:/2_Binary/clangd/bin/clangd.exe",
+    "clangd.path": "/home/snow/Tools/clangd_13.0.0/bin/clangd",
     "clangd.arguments": [
         "-j=4",
         "--pretty",
